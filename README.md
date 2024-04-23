@@ -2,7 +2,7 @@
 qisynth-banking application is an application that performs financial operations.
 
 # Decription
-qisynth-banking application is a scabable application built on Java, using various technology like Springboot, Hibernate, Junit 5 (Jupiter) and TestContainers for efficient testing. Also uses postgresDB as it database.
+qisynth-banking application is a scabable monolithic application built on Java, using various technology like Springboot, Hibernate, Junit 5 (Jupiter) and TestContainers for efficient testing. Also uses postgresDB as it database.
 
 qisynth-banking application, Users can seamlessly onboard, credits their accounts and transfer funds between users.
 
