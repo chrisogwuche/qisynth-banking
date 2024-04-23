@@ -15,5 +15,5 @@ qisynth-banking application, Users can seamlessly onboard, credits their account
 
 # How To Run qisynth-banking-application Test
 1. Do "How To Install and Run qisynth-banking-application" procedure
-2. Install docker and start docker (To run testing)
+2. Install docker and start docker
 3. Run qisynth-banking-application test
