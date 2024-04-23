@@ -43,7 +43,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     private Invoice setInvoice(Users user, BigDecimal amount, String currency, Purpose purpose,
                                PaymentStatus paymentStatus, PaymentType paymentType, String description){
-
+        log.info("setInvoice::");
         Invoice invoice = new Invoice();
         invoice.setReferenceNo(AppServiceUtils.IDGenerator(false));
         invoice.setDescription(description);
@@ -70,6 +70,7 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     private InvoiceData mapToInvoiceResponseDto(Invoice x){
+        log.info("mapToInvoiceResponseDto::");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
         String createAt = x.getCreatedAt().atOffset(ZoneOffset.UTC).format(formatter);
         return InvoiceData.builder()

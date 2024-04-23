@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +31,7 @@ public class PinServiceImpl implements PinService {
     }
 
     public ResponseDto createPin(PinDto pinDto, Users user){
-
+        log.info("createPin::");
         if(user.getPin() == null){
             Pin newPin = new Pin();
             newPin.setTxPin(bCryptPasswordEncoder.encode(pinDto.getTx_pin()));

@@ -62,7 +62,6 @@ public class WalletServiceImpl implements WalletService {
     /*
     handles crediting user's wallet
     */
-
     @Override
     public ResponseEntity<ResponseDto> creditWallet(CreditWalletRequest request) {
         Users user = appServiceUtils.getCurrentUser();
@@ -88,6 +87,7 @@ public class WalletServiceImpl implements WalletService {
     }
 
     public ResponseDto iniTransfer(TransferReq trfReq, Users user){
+        log.info("iniTransfer::");
 
         if (pinServiceImpl.validatePin(trfReq.getPin(), getUserTxnPin(user))) {
             Wallet recieverWallet = getWallet(trfReq.getAccount_no());
@@ -113,6 +113,7 @@ public class WalletServiceImpl implements WalletService {
     }
 
     private void setTransferInvoicesAndSave(TransferReq trfReq, Users receiver, Users user) {
+        log.info("setTransferInvoicesAndSave::");
         String userPayDetail = setPaymentDetails(user.getWallet().getAccountNo(),receiver.getWallet().getAccountNo()
                 ,trfReq.getAmount(), trfReq.getDescription(),"transfer");
         String recvPayDetail = setPaymentDetails(user.getWallet().getAccountNo(),null,trfReq.getAmount(),
@@ -128,6 +129,7 @@ public class WalletServiceImpl implements WalletService {
 
     /* This method creates a new wallet for user */
     private Wallet setWallet(Users user){
+        log.info("setWallet::");
         Wallet newWallet = new Wallet();
         newWallet.setUser(user);
         newWallet.setBalance(BigDecimal.ZERO);
@@ -137,6 +139,8 @@ public class WalletServiceImpl implements WalletService {
 
     public ResponseDto initiateCreditWallet(CreditWalletRequest request, Users user){
         if(creditStatus(request, user)){
+            log.info("initiateCreditWallet::");
+
             Invoice savedInvoice = getInvoice(user,request.getAmount(), PaymentStatus.SUCCESSFUL, Purpose.CREDIT_WALLET
                     ,PaymentType.CREDIT, "Credit wallet");
 
@@ -154,6 +158,7 @@ public class WalletServiceImpl implements WalletService {
 
     private Invoice getInvoice(Users user, String amount, PaymentStatus paymentStatus, Purpose purpose
             , PaymentType paymentType, String desc) {
+        log.info("getInvoice::");
         Invoice invoice = invoiceService.createInvoice(user, BigDecimal.valueOf(parseLong(amount)), "NGN"
                 , purpose, paymentStatus, paymentType,desc);
         return invoiceRepository.save(invoice);
@@ -165,6 +170,7 @@ public class WalletServiceImpl implements WalletService {
     }
 
     private String setPaymentDetails(String from, String to, String amt, String userDesc, String payDesc){
+        log.info("setPaymentDetails::");
         PaymentDetailDto payDetail = new PaymentDetailDto();
         payDetail.setFrom(from);
         payDetail.setTo(to);
